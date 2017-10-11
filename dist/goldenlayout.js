@@ -4894,8 +4894,8 @@ lm.utils.copy( lm.items.Stack.prototype, {
 			this.element.addClass( 'lm_' + this._side );
 		if( this.element.find( '.lm_header' ).length && this.childElementContainer ) {
 			var headerPosition = [ 'right', 'bottom' ].indexOf( this._side ) >= 0 ? 'before' : 'after';
-			this.header.element[ headerPosition ]( this.childElementContainer );
-			// this.callDownwards( 'setSize' );
+			// this.header.element[ headerPosition ]( this.childElementContainer );
+			this.callDownwards( 'setSize' );
 		}
 	},
 
