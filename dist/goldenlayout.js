@@ -84,9 +84,9 @@ lm.utils.animFrame = function( fn ) {
 };
 
 lm.utils.indexOf = function( needle, haystack ) {
-	if( !( haystack instanceof Array ) ) {
-		throw new Error( 'Haystack is not an Array' );
-	}
+	// if( !( haystack instanceof Array ) ) {
+	// 	throw new Error( 'Haystack is not an Array' );
+	// }
 
 	if( haystack.indexOf ) {
 		return haystack.indexOf( needle );
@@ -2473,7 +2473,7 @@ lm.utils.copy( lm.controls.Header.prototype, {
 			previous = 'top';
 		if( position !== undefined && this.parent._header.show != position ) {
 			this.parent._header.show = position;
-			this.parent._setupHeaderPosition();
+			this.parent._setupHeaderPositionBENS();
 		}
 		return previous;
 	},
@@ -4881,6 +4881,21 @@ lm.utils.copy( lm.items.Stack.prototype, {
 			var headerPosition = [ 'right', 'bottom' ].indexOf( this._side ) >= 0 ? 'before' : 'after';
 			this.header.element[ headerPosition ]( this.childElementContainer );
 			this.callDownwards( 'setSize' );
+		}
+	},
+
+	_setupHeaderPositionBENS: function() {
+		var side = [ 'right', 'left', 'bottom' ].indexOf( this._header.show ) >= 0 && this._header.show;
+		this.header.element.toggle( !!this._header.show );
+		this._side = side;
+		this._sided = [ 'right', 'left' ].indexOf( this._side ) >= 0;
+		this.element.removeClass( 'lm_left lm_right lm_bottom' );
+		if( this._side )
+			this.element.addClass( 'lm_' + this._side );
+		if( this.element.find( '.lm_header' ).length && this.childElementContainer ) {
+			var headerPosition = [ 'right', 'bottom' ].indexOf( this._side ) >= 0 ? 'before' : 'after';
+			this.header.element[ headerPosition ]( this.childElementContainer );
+			// this.callDownwards( 'setSize' );
 		}
 	},
 
